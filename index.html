@@ -28,7 +28,7 @@
                 return;
             }
 
-            fetch("https://pay-yourself-first.onrender.com/allocate_income", {
+            fetch("https://pay-yourself-api.onrender.com/allocate_income", {
                 method: "POST",
                 headers: { "Content-Type": "application/json" },
                 body: JSON.stringify({ income: parseFloat(income) })
