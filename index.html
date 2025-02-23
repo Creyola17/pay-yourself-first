@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pay Yourself First</title>
+    <style>
+        body { font-family: Arial, sans-serif; text-align: center; margin-top: 50px; }
+        input, button { margin: 10px; padding: 10px; }
+        #result { margin-top: 20px; font-weight: bold; }
+    </style>
+</head>
+<body>
+
+    <h1>Pay Yourself First Calculator</h1>
+    <p>Enter your income to see the allocation</p>
+    
+    <input type="number" id="income" placeholder="Enter your income">
+    <button onclick="calculate()">Submit</button>
+
+    <div id="result"></div>
+
+    <script>
+        function calculate() {
+            let income = document.getElementById('income').value;
+            if (!income || income <= 0) {
+                alert("Please enter a valid income amount.");
+                return;
+            }
+
+            fetch("https://pay-yourself-first.onrender.com/allocate_income", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ income: parseFloat(income) })
+            })
+            .then(response => response.json())
+            .then(data => {
+                let output = "<h2>Allocation</h2>";
+                for (let key in data.allocation) {
+                    output += `<p><strong>${key}:</strong> $${data.allocation[key]}</p>`;
+                }
+                document.getElementById('result').innerHTML = output;
+            })
+            .catch(error => console.error("Error:", error));
+        }
+    </script>
+
+</body>
+</html>
