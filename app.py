@@ -1,15 +1,17 @@
 from flask import Flask, request, jsonify
+from flask_cors import CORS
 import datetime
 
 app = Flask(__name__)
+CORS(app)  # Allows all origins. You can specify allowed domains if needed.
 
-# Sample user income allocation configuration
+# Income allocation configuration
 user_config = {
-    "retirement": 0.10,  # 10%
-    "checking_bills": 0.70,  # Bills and other expenses
-    "emergency_fund": 0.05,  # 5%
-    "dream_account": 0.05,  # 5%
-    "tithes_giving": 0.10   # 10%
+    "retirement": 0.10,
+    "checking_bills": 0.70,
+    "emergency_fund": 0.05,
+    "dream_account": 0.05,
+    "tithes_giving": 0.10
 }
 
 @app.route('/', methods=['GET'])
